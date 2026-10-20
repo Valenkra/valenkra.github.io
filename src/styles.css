@@ -343,3 +343,177 @@
 @media (max-width: 380px) {
   .welcome-xp-sidebar .welcome-xp-sidebox { min-width: 138px; flex-basis: 138px; }
 }
+
+/* XP titlebar: perfectly centered window controls */
+.window-title .window-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  height: 100%;
+  flex-shrink: 0;
+}
+.window-title .window-buttons > button {
+  appearance: none;
+  box-sizing: border-box;
+  width: 25px;
+  height: 23px;
+  min-width: 25px;
+  min-height: 23px;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+  vertical-align: middle;
+}
+.window-title .window-buttons > button > svg {
+  display: block;
+  flex: 0 0 auto;
+  margin: 0;
+  transform: none;
+}
+
+
+/* ValenOS — ocultar sidebar en mobile */
+@media (max-width: 700px) {
+  .welcome-xp-sidebar {
+    display: none !important;
+  }
+
+  .welcome-xp-layout {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .welcome-xp-main {
+    flex: 1;
+    width: 100%;
+    min-height: 0;
+    overflow-y: auto;
+  }
+}
+
+
+/* My Projects — Windows XP Explorer */
+.xp-project-explorer{height:100%;min-height:0;display:flex;flex-direction:column;font:11px Tahoma,Verdana,Arial,sans-serif;color:#222;background:#fff}
+.xp-project-menu{height:23px;flex:none;background:#f3f1e8;padding:5px 9px;color:#222;white-space:nowrap}
+.xp-project-toolbar{height:36px;flex:none;display:flex;align-items:center;gap:12px;padding:3px 9px;background:linear-gradient(#fff,#eeeae0);border-top:1px solid #fff;border-bottom:1px solid #b6b6ae;color:#353535;white-space:nowrap}
+.xp-project-toolbar button{border:0;background:transparent;color:#222;font:inherit;padding:4px}.xp-project-toolbar button:disabled{opacity:.45;cursor:default}.xp-project-toolbar-sep{height:24px;border-left:1px solid #c5c5bf;border-right:1px solid white}
+.xp-project-address{height:27px;flex:none;display:flex;align-items:center;gap:5px;padding:3px 6px;background:#f4f2e9;border-bottom:1px solid #b6b6ae;color:#777}
+.xp-project-address>div{display:flex;align-items:center;gap:5px;flex:1;min-width:0;height:21px;border:1px solid #9eafc2;background:white;padding:1px 5px;color:#222;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.xp-project-address>button{background:linear-gradient(#b9eab3,#43a33a);border:1px solid #6e9d64;color:#174c12;font:inherit;height:21px;padding:0 7px}
+.xp-project-content{flex:1;display:flex;min-height:0;overflow:hidden}
+.xp-project-sidebar{width:185px;flex:0 0 185px;padding:11px 10px;background:linear-gradient(180deg,#83a2e5,#6c8bd8 52%,#657fd0);overflow-y:auto;display:flex;flex-direction:column;gap:12px}
+.xp-project-sidebox{background:#d6e2f8;border-radius:4px 4px 2px 2px;overflow:hidden}
+.xp-project-sideheading{width:100%;min-height:27px;display:flex;justify-content:space-between;align-items:center;padding:4px 8px 4px 11px;border:0;text-align:left;color:#19458d;font:bold 11px Tahoma,Verdana,sans-serif;background:linear-gradient(90deg,#fff,#e7efff 65%,#cbdaf8)}
+.xp-project-sideheading>span:last-child{width:18px;height:18px;display:grid;place-items:center;border-radius:50%;background:#fff;color:#4d70b7;box-shadow:0 1px 2px #8ca2ce;font-size:15px;line-height:1}
+.xp-project-sidebody{padding:9px 10px 10px;display:flex;flex-direction:column;gap:7px;color:#20488a}
+.xp-project-sidebody button,.xp-project-sidebody a{border:0;background:transparent;padding:0;text-align:left;color:#205099;font:11px Tahoma,Verdana,sans-serif;text-decoration:none;line-height:1.3}
+.xp-project-sidebody button:hover,.xp-project-sidebody a:hover{text-decoration:underline}
+.xp-project-side-details{gap:3px;color:#222}.xp-project-side-details strong{font-size:11px}.xp-project-side-details span{font-size:10px;color:#444}
+.xp-project-main{flex:1;min-width:0;overflow:auto;padding:13px 15px;background:#fff}
+.xp-project-group-title{font-weight:bold;color:#222;border-bottom:1px solid #d4d4d4;margin:0 0 10px;padding:0 0 4px}
+.xp-project-folders{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 18px;margin-bottom:20px}
+.xp-project-folder{display:flex;align-items:center;gap:9px;min-width:0;padding:4px 6px;border:1px solid transparent;background:transparent;color:#222;text-align:left;font:11px Tahoma,Verdana,sans-serif}
+.xp-project-folder img{object-fit:contain;flex:none}.xp-project-folder span{overflow-wrap:anywhere}
+.xp-project-folder:hover,.xp-project-folder.is-selected{background:#dce9ff;border-color:#9ab9e8}
+.xp-project-hint{font-size:10px;color:#777;margin-top:12px}
+.xp-project-backlink{background:transparent;border:0;color:#245aa3;font:11px Tahoma,Verdana,sans-serif;padding:0;margin-bottom:14px;text-decoration:underline}
+.xp-project-detail-title{display:flex;align-items:center;gap:10px;margin-bottom:16px}.xp-project-detail-title h2{margin:0 0 4px;font-size:18px;font-weight:normal;color:#173f86}.xp-project-detail-title span{font-size:10px;color:#555}
+.xp-project-description{font-size:11px;line-height:1.55;margin:0 0 16px;color:#333}
+.xp-project-links{display:flex;flex-direction:column;align-items:flex-start;gap:10px;margin-bottom:12px}.xp-project-links a{font-size:11px;color:#1554a1;text-decoration:underline}
+.xp-project-status{height:20px;flex:none;border-top:1px solid #b8b8b8;background:#f2f0e7;padding:3px 8px;color:#555;font-size:10px}
+@media(max-width:700px){.xp-window:has(.xp-project-explorer):not(.maximized){left:7px!important;top:54px!important;width:calc(100% - 14px)!important;height:calc(100dvh - 104px)!important;min-width:0;min-height:0}.xp-project-sidebar{display:none}.xp-project-main{padding:12px 10px}.xp-project-folders{grid-template-columns:1fr;gap:6px}.xp-project-toolbar{gap:7px;font-size:10px}.xp-project-menu{font-size:10px}.xp-project-address{font-size:10px}}
+
+/* My Projects: XP task pane spacing and prevent panel clipping */
+.xp-project-sidebar {
+  padding: 15px 12px 22px;
+  gap: 15px;
+  align-items: stretch;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+.xp-project-sidebox {
+  flex: 0 0 auto;
+  min-height: max-content;
+}
+.xp-project-sideheading {
+  min-height: 30px;
+  padding: 5px 9px 5px 12px;
+}
+.xp-project-sidebody {
+  padding: 12px 12px 14px;
+  gap: 10px;
+}
+.xp-project-sidebody button,
+.xp-project-sidebody a {
+  display: block;
+  min-height: 17px;
+  line-height: 1.45;
+}
+.xp-project-side-details { gap: 5px; }
+
+
+/* My Projects task pane — exact visual language of Welcome sidebar */
+.xp-project-sidebar {
+  width:184px;flex:0 0 184px;
+  padding:10px 9px 12px;gap:11px;
+  display:flex;flex-direction:column;align-items:stretch;
+  overflow-y:auto;scrollbar-width:thin;
+  background:linear-gradient(180deg,#7e9de0 0%,#6b8bd7 48%,#637dcd 100%);
+  font-family:Tahoma,Verdana,Arial,sans-serif;
+}
+.xp-project-sidebox {
+  flex:0 0 auto;min-height:0;margin:0;padding:0;
+  overflow:hidden;border-radius:4px 4px 1px 1px;
+  background:#d6e2f7;box-shadow:none;color:#203963;
+}
+.xp-project-sideheading {
+  width:100%;min-height:27px;height:auto;
+  padding:5px 6px 5px 10px;
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+  border:0;border-radius:0;text-align:left;
+  font:bold 11px Tahoma,Verdana,Arial,sans-serif;color:#234a92;
+  background:linear-gradient(90deg,#fff 0%,#f8faff 50%,#bed0f4 100%);
+}
+.xp-project-sideheading:hover {color:#125fc4}
+.xp-project-chevron {
+  width:16px;height:16px;flex:none;display:grid;place-items:center;
+  border-radius:50%;background:linear-gradient(#fff,#f7f9ff);
+  border:1px solid #c0cbe8;color:#5472b3;box-shadow:0 1px 1px #849bc055;
+}
+.xp-project-chevron svg {display:block;transform:rotate(90deg)}
+.xp-project-chevron.is-open svg {transform:rotate(-90deg)}
+.xp-project-sidebody {
+  display:flex;flex-direction:column;gap:1px;
+  padding:7px 8px 8px 10px;background:#d6e2f7;color:#35517d;
+}
+.xp-project-sidebody button,.xp-project-sidebody a {
+  display:flex;align-items:center;gap:7px;width:100%;
+  min-height:22px;padding:3px 1px;margin:0;
+  border:0;border-radius:0;background:transparent;
+  text-align:left;text-decoration:none;white-space:normal;
+  color:#35517d;font:10px/1.2 Tahoma,Verdana,Arial,sans-serif;
+}
+.xp-project-sidebody button:hover,.xp-project-sidebody a:hover {
+  background:transparent;color:#125bb5;text-decoration:underline;
+}
+.xp-project-sidebody button img,.xp-project-sidebody a img,
+.xp-project-sidebody button svg,.xp-project-sidebody a svg {
+  width:17px;height:17px;flex:none;object-fit:contain;
+}
+.xp-project-side-details {gap:2px;padding:8px 10px 10px;color:#222}
+.xp-project-side-details strong {font:bold 11px Tahoma,Verdana,Arial,sans-serif;color:#222}
+.xp-project-side-details span {font:10px/1.3 Tahoma,Verdana,Arial,sans-serif;color:#444}
+@media(max-width:700px){.xp-project-sidebar{display:none}}
+
+
+/* My Projects — ocultar botón Go */
+.explorer-address button {
+  display: none !important;
+}
+
+/* My Projects: address bar without Go button */
+.xp-project-address > div { flex: 1; }

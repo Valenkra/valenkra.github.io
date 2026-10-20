@@ -75,8 +75,49 @@ function Welcome(){
     </div>
   </div>;
 }
-const projects=[{title:'ValenOS',tag:'React · TypeScript · Vite',desc:'Este portfolio interactivo inspirado en Windows XP y Frutiger Aero.'},{title:'Proyecto destacado 02',tag:'Tu stack',desc:'Reemplazá este ejemplo con uno de tus repositorios.'},{title:'Proyecto destacado 03',tag:'Tu stack',desc:'Agregá aquí un proyecto universitario o personal.'},{title:'Proyecto destacado 04',tag:'Tu stack',desc:'Mostrá un desafío técnico que hayas resuelto.'}];
-function Projects(){return <div className="explorer"><div className="explorer-toolbar">← Back　│　⌕ Search　│　📁 Folders</div><div className="explorer-body"><aside><strong>Project Tasks</strong><p>▸ Open project</p><p>▸ View details</p><p>▸ GitHub repository</p><strong>Other Places</strong><p>My Computer</p><p>About Me</p></aside><div className="project-grid">{projects.map((p,i)=><article className="project-card" key={p.title}><div className="folder-art"><img src="/icons/xp/folder.png" alt="" width="40" height="40" /></div><strong>{String(i+1).padStart(2,'0')}_{p.title}</strong><small>{p.tag}</small><p>{p.desc}</p></article>)}</div></div></div>}
+type ProjectKey = 'valenshop' | 'valenos';
+const projectData: Record<ProjectKey,{name:string;type:string;description:string;stack:string;repo:string;demo:string}> = {
+  valenshop: {
+    name:'ValenShop', type:'Full-stack e-commerce · In development',
+    description:'An e-commerce platform for retail and wholesale shopping, with a responsive product catalog, categories, sizes and product variants. Built with a separate backend API.',
+    stack:'Next.js · React · TypeScript · Fastify · PostgreSQL',
+    repo:'https://github.com/Valenkra/E-commerce', demo:'https://valenkra-ecommerce.vercel.app/'
+  },
+  valenos: {
+    name:'ValenOS', type:'Interactive portfolio',
+    description:'A nostalgic interactive portfolio inspired by Windows XP, with draggable application windows, desktop shortcuts and custom interfaces.',
+    stack:'React · TypeScript · Vite · Zustand',
+    repo:'https://github.com/Valenkra/valenkra.github.io', demo:'https://valenkra.github.io/'
+  }
+};
+function Projects(){
+  const [selected,setSelected]=useState<ProjectKey|null>(null);
+  const [expanded,setExpanded]=useState({tasks:true,places:true,details:true});
+  const toggle=(key:'tasks'|'places'|'details')=>setExpanded(s=>({...s,[key]:!s[key]}));
+  const item=selected?projectData[selected]:null;
+  const folder=(id:ProjectKey)=><button type="button" key={id} className={'xp-project-folder '+(selected===id?'is-selected':'')} onClick={()=>setSelected(id)} onDoubleClick={()=>setSelected(id)} aria-label={'Open '+projectData[id].name}>
+    <img src="/icons/xp/folder.png" width="45" height="45" alt=""/><span>{projectData[id].name}</span>
+  </button>;
+  return <div className="xp-project-explorer">
+    <div className="xp-project-menu">File　 Edit　 View　 Favorites　 Tools　 Help</div>
+    <div className="xp-project-toolbar"><button type="button" onClick={()=>setSelected(null)} disabled={!selected}>◀ <span>Back</span></button><span className="xp-project-toolbar-sep"/><span>📁 Folders</span><span className="xp-project-toolbar-sep"/><span>⌕ Search</span></div>
+    <div className="xp-project-address"><span>Address</span><div><img src="/icons/xp/projects.png" alt="" width="15" height="15"/> My Projects{item?' / '+item.name:''}</div></div>
+    <div className="xp-project-content">
+      <aside className="xp-project-sidebar" aria-label="Project tasks">
+        <section className="xp-project-sidebox"><button className="xp-project-sideheading" onClick={()=>toggle('tasks')} aria-expanded={expanded.tasks}><span>Project Tasks</span><span className={'xp-project-chevron '+(expanded.tasks?'is-open':'')} aria-hidden="true"><ChevronRight size={12} strokeWidth={2.5}/></span></button>{expanded.tasks&&<div className="xp-project-sidebody"><button onClick={()=>setSelected('valenshop')}><img src="/icons/xp/folder.png" width="17" height="17" alt=""/>View ValenShop</button><button onClick={()=>setSelected('valenos')}><img src="/icons/xp/folder.png" width="17" height="17" alt=""/>View ValenOS</button>{item&&<a href={item.repo} target="_blank" rel="noopener noreferrer"><ExternalLink size={15}/>Source code</a>}</div>}</section>
+        <section className="xp-project-sidebox"><button className="xp-project-sideheading" onClick={()=>toggle('places')} aria-expanded={expanded.places}><span>Other Places</span><span className={'xp-project-chevron '+(expanded.places?'is-open':'')} aria-hidden="true"><ChevronRight size={12} strokeWidth={2.5}/></span></button>{expanded.places&&<div className="xp-project-sidebody"><button onClick={()=>setSelected(null)}><img src="/icons/xp/folder.png" width="17" height="17" alt=""/>My Projects</button><a href="https://github.com/Valenkra" target="_blank" rel="noopener noreferrer"><Github size={16}/>GitHub</a></div>}</section>
+        <section className="xp-project-sidebox"><button className="xp-project-sideheading" onClick={()=>toggle('details')} aria-expanded={expanded.details}><span>Details</span><span className={'xp-project-chevron '+(expanded.details?'is-open':'')} aria-hidden="true"><ChevronRight size={12} strokeWidth={2.5}/></span></button>{expanded.details&&<div className="xp-project-sidebody xp-project-side-details"><strong>{item?.name??'My Projects'}</strong><span>{item?.type??'2 project folders'}</span></div>}</section>
+      </aside>
+      <main className="xp-project-main">{!item?<><div className="xp-project-group-title">Files Stored in This Folder</div><div className="xp-project-folders">{folder('valenshop')}{folder('valenos')}</div><p className="xp-project-hint">Select a folder to view its details.</p></>:<>
+        <div className="xp-project-detail-title"><img src="/icons/xp/folder.png" alt="" width="44" height="44"/><div><h2>{item.name}</h2><span>{item.type}</span></div></div>
+        <div className="xp-project-group-title">Description</div><p className="xp-project-description">{item.description}</p>
+        <div className="xp-project-group-title">Technologies</div><p className="xp-project-description">{item.stack}</p>
+        <div className="xp-project-group-title">Links</div><div className="xp-project-links"><a href={item.demo} target="_blank" rel="noopener noreferrer">🌐 Visit live website ↗</a><a href={item.repo} target="_blank" rel="noopener noreferrer">📁 View source code ↗</a></div>
+      </>}</main>
+    </div>
+    <div className="xp-project-status">{item?'1 object selected':'2 objects'}</div>
+  </div>;
+}
 
 function About() {
   return (
