@@ -196,7 +196,44 @@ function Music() {
   );
 }
 function Terminal(){const [lines,setLines]=useState<string[]>(['ValenOS [Version 1.0.0]','(c) 2026 Valen. All rights reserved.','','Type "help" for available commands.']);const [cmd,setCmd]=useState('');const answers:Record<string,string>={help:'Available commands: help, whoami, skills, projects, music, contact, clear',whoami:'Valen — informática, código, música y creatividad.',skills:'React · TypeScript · JavaScript · y mucho por aprender',projects:'Abrí My Projects desde el escritorio.',music:'Abrí Valenamp desde el escritorio.',contact:'Abrí Contact desde el escritorio.'};return <div className="terminal-body" onClick={()=>document.getElementById('cmd-input')?.focus()}>{lines.map((l,i)=><div key={i}>{l||'\u00a0'}</div>)}<form onSubmit={e=>{e.preventDefault();const c=cmd.trim().toLowerCase();setLines(old=>c==='clear'?[]:[...old,`C:\\Users\\Valen> ${cmd}`,answers[c]??`'${cmd}' is not recognized as a command.`]);setCmd('');}}><span>C:\Users\Valen&gt;</span><input id="cmd-input" autoComplete="off" value={cmd} onChange={e=>setCmd(e.target.value)} aria-label="Comando de terminal"/></form></div>}
-function Paint(){const canvas=useRef<HTMLCanvasElement>(null);const down=useRef(false);const [color,setColor]=useState('#2685dd');function draw(e:React.PointerEvent<HTMLCanvasElement>){if(!down.current)return;const c=canvas.current!;const rect=c.getBoundingClientRect();const ctx=c.getContext('2d')!;ctx.fillStyle=color;ctx.beginPath();ctx.arc((e.clientX-rect.left)*c.width/rect.width,(e.clientY-rect.top)*c.height/rect.height,3,0,Math.PI*2);ctx.fill();}return <div className="paint-app"><div className="paint-tools">{['#2685dd','#f04f7a','#64bd64','#ffcb45','#292929','#ffffff'].map(c=><button key={c} aria-label={'Color '+c} style={{background:c,outline:color===c?'2px solid #1454a3':undefined}} onClick={()=>setColor(c)}/>)}<button className="clear-canvas" onClick={()=>canvas.current?.getContext('2d')?.clearRect(0,0,800,450)}>Clear</button></div><canvas ref={canvas} width={800} height={450} onPointerDown={e=>{down.current=true;e.currentTarget.setPointerCapture(e.pointerId);draw(e);}} onPointerMove={draw} onPointerUp={()=>down.current=false} onPointerCancel={()=>down.current=false} aria-label="Lienzo para dibujar"/><small>Elegí un color y dibujá con el mouse o el dedo.</small></div>}
+function Paint(){
+  const canvas=useRef<HTMLCanvasElement>(null);
+  const drawing=useRef(false);
+  const [color,setColor]=useState('#000000');
+  const [tool,setTool]=useState<'pencil'|'brush'|'eraser'>('pencil');
+  const colors=['#000000','#808080','#800000','#808000','#008000','#008080','#000080','#800080','#808040','#004040','#0080ff','#004080','#4000ff','#804000','#ffffff','#c0c0c0','#ff0000','#ffff00','#00ff00','#00ffff','#0000ff','#ff00ff','#ffff80','#80ff80','#80ffff','#8080ff','#ff80ff','#ff8040'];
+  function draw(e:React.PointerEvent<HTMLCanvasElement>){
+    if(!drawing.current)return;
+    const c=canvas.current;if(!c)return;
+    const rect=c.getBoundingClientRect();const ctx=c.getContext('2d');if(!ctx)return;
+    const x=(e.clientX-rect.left)*c.width/rect.width;
+    const y=(e.clientY-rect.top)*c.height/rect.height;
+    ctx.lineCap='round';ctx.lineJoin='round';ctx.lineWidth=tool==='eraser'?17:tool==='brush'?7:2;
+    ctx.strokeStyle=tool==='eraser'?'#ffffff':color;
+    ctx.lineTo(x,y);ctx.stroke();ctx.beginPath();ctx.moveTo(x,y);
+  }
+  const clear=()=>{const c=canvas.current;if(!c)return;const ctx=c.getContext('2d');if(!ctx)return;ctx.clearRect(0,0,c.width,c.height);};
+  return <div className="paint-xp">
+    <div className="paint-xp-menu"><span>File</span><span>Edit</span><span>View</span><span>Image</span><span>Colors</span><span>Help</span></div>
+    <div className="paint-xp-workspace">
+      <div className="paint-xp-tools" aria-label="Paint tools">
+        <button type="button" title="Free-form select" disabled>⌁</button><button type="button" title="Select" disabled>▧</button>
+        <button type="button" title="Eraser" aria-pressed={tool==='eraser'} className={tool==='eraser'?'active':''} onClick={()=>setTool('eraser')}>▱</button><button type="button" title="Fill" disabled>◈</button>
+        <button type="button" title="Eyedropper" disabled>♢</button><button type="button" title="Magnifier" disabled>⌕</button>
+        <button type="button" title="Pencil" aria-pressed={tool==='pencil'} className={tool==='pencil'?'active':''} onClick={()=>setTool('pencil')}>✎</button><button type="button" title="Brush" aria-pressed={tool==='brush'} className={tool==='brush'?'active':''} onClick={()=>setTool('brush')}>🖌</button>
+        <button type="button" title="Airbrush" disabled>✺</button><button type="button" title="Text" disabled>A</button>
+        <button type="button" title="Line" disabled>╱</button><button type="button" title="Curve" disabled>⌁</button>
+        <button type="button" title="Rectangle" disabled>▭</button><button type="button" title="Polygon" disabled>⬠</button>
+        <button type="button" title="Ellipse" disabled>◯</button><button type="button" title="Rounded rectangle" disabled>▢</button>
+        <div className="paint-xp-tool-bottom"><span>▧</span><span>▨</span></div>
+      </div>
+      <div className="paint-xp-canvas-frame"><div className="paint-xp-canvas-sheet"><canvas ref={canvas} width={1100} height={740} aria-label="Paint drawing canvas" onPointerDown={e=>{drawing.current=true;e.currentTarget.setPointerCapture(e.pointerId);const ctx=canvas.current?.getContext('2d');ctx?.beginPath();draw(e);}} onPointerMove={draw} onPointerUp={()=>{drawing.current=false;canvas.current?.getContext('2d')?.beginPath();}} onPointerCancel={()=>{drawing.current=false;canvas.current?.getContext('2d')?.beginPath();}}/></div></div>
+    </div>
+    <div className="paint-xp-bottom"><div className="paint-xp-current"><span style={{background:color}}/><span style={{background:'#ffffff'}}/></div><div className="paint-xp-palette">{colors.map((c,i)=><button type="button" key={i} title={'Color '+c} aria-label={'Color '+c} className={color===c?'active':''} style={{background:c}} onClick={()=>setColor(c)}/>)}</div><button type="button" className="paint-xp-clear" onClick={clear}>Clear</button></div>
+    <div className="paint-xp-status">For Help, click Help Topics on the Help Menu. <span>{tool==='eraser'?'Eraser':tool==='brush'?'Brush':'Pencil'} selected</span></div>
+  </div>;
+}
+
 function Contact(){
   const [openPanels,setOpenPanels]=useState({tasks:true,details:true});
   const toggle=(key:'tasks'|'details')=>setOpenPanels(s=>({...s,[key]:!s[key]}));
