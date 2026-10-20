@@ -6,7 +6,7 @@ type AppId = 'welcome'|'projects'|'about'|'music'|'terminal'|'paint'|'contact';
 type Win = {id: AppId; x:number; y:number; w:number; h:number; minimized:boolean; maximized:boolean; z:number};
 type Store = {windows:Win[]; top:number; open:(id:AppId)=>void; close:(id:AppId)=>void; focus:(id:AppId)=>void; minimize:(id:AppId)=>void; maximize:(id:AppId)=>void; move:(id:AppId,x:number,y:number)=>void};
 const initial: Record<AppId,Pick<Win,'x'|'y'|'w'|'h'>> = {
-  welcome:{x:170,y:75,w:480,h:390}, projects:{x:260,y:175,w:600,h:430}, about:{x:330,y:100,w:490,h:370},music:{x:660,y:125,w:370,h:360},terminal:{x:400,y:225,w:510,h:330},paint:{x:410,y:150,w:500,h:400},contact:{x:370,y:180,w:420,h:310}
+  welcome:{x:180,y:75,w:680,h:420}, projects:{x:260,y:175,w:600,h:430}, about:{x:330,y:100,w:490,h:370},music:{x:400,y:105,w:650,h:460},terminal:{x:400,y:225,w:510,h:330},paint:{x:410,y:150,w:500,h:400},contact:{x:370,y:180,w:420,h:310}
 };
 const useDesktop = create<Store>((set)=>({
  windows:[{id:'welcome',...initial.welcome,minimized:false,maximized:false,z:1}],top:1,
@@ -31,11 +31,129 @@ function Window({win}:{win:Win}){
  <div className="window-title" onPointerDown={e=>{if(win.maximized|| (e.target as HTMLElement).closest('button'))return;start.current={px:e.clientX,py:e.clientY,x:win.x,y:win.y};}} onDoubleClick={()=>maximize(win.id)}><span className="title-label"><XPImg id={win.id} size={17}/>{titles[win.id]}</span><div className="window-buttons"><button aria-label="Minimizar" onClick={()=>minimize(win.id)}><Minus size={13}/></button><button aria-label="Maximizar" onClick={()=>maximize(win.id)}>{win.maximized?<Maximize2 size={12}/>:<Square size={12}/>}</button><button className="close-btn" aria-label="Cerrar" onClick={()=>close(win.id)}><X size={14}/></button></div></div>
  <div className="window-content">{win.id==='welcome'?<Welcome/>:win.id==='projects'?<Projects/>:win.id==='about'?<About/>:win.id==='music'?<Music/>:win.id==='terminal'?<Terminal/>:win.id==='paint'?<Paint/>:<Contact/>}</div></section>;
 }
-function Welcome(){const open=useDesktop(s=>s.open);return <div className="welcome-content"><div className="welcome-cloud">✦ <span>ValenOS</span> 🦋</div><p className="welcome-tagline">a place where code and music meet</p><div className="welcome-actions">{([['projects','explore my projects'],['about','get to know me'],['music','listen to some music'],['terminal','open the terminal']] as [AppId,string][]).map(([id,label])=><button key={id} onClick={()=>open(id)}><ChevronRight size={16}/>{label}</button>)}</div><div className="welcome-footer">made with curiosity, code & music ♡</div></div>}
+function Welcome(){
+  const open=useDesktop(s=>s.open);
+  const [expandedPanels,setExpandedPanels]=useState({tasks:true,places:true,details:true});
+  const togglePanel=(panel:'tasks'|'places'|'details')=>setExpandedPanels(prev=>({...prev,[panel]:!prev[panel]}));
+  const actions: {id:AppId;title:string;detail:string}[] = [
+    {id:'projects',title:'Explore my projects',detail:"Check out what I've built"},
+    {id:'about',title:'Get to know me',detail:'A little more about who I am'},
+    {id:'music',title:'Listen to some music',detail:'Open Valenamp'},
+    {id:'terminal',title:'Open the terminal',detail:'Try some commands'},
+  ];
+  return <div className="welcome-xp">
+    <header className="welcome-xp-banner"><div className="welcome-xp-brand"><img className="welcome-xp-butterfly" src="/icons/valenos-butterfly.svg" alt="" /><div><h1>ValenOS</h1><p>a place where code and music meet</p></div></div></header>
+    <div className="welcome-xp-layout">
+      <aside className="welcome-xp-sidebar" aria-label="Windows XP task pane">
+        <section className="welcome-xp-sidebox">
+          <button type="button" className="welcome-xp-panel-heading" aria-expanded={expandedPanels.places} onClick={()=>togglePanel('places')}>
+            <span>Other Places</span><span className={'welcome-xp-panel-chevron '+(expandedPanels.places?'is-open':'')} aria-hidden="true"><ChevronRight size={12} strokeWidth={2.5}/></span>
+          </button>
+          {expandedPanels.places&&<div className="welcome-xp-panel-body">
+            <button type="button" className="welcome-xp-side-link" onClick={()=>open('projects')}><XPImg id="projects" size={17}/>My Projects</button>
+            <button type="button" className="welcome-xp-side-link" onClick={()=>open('about')}><XPImg id="about" size={17}/>About Me.txt</button>
+            <button type="button" className="welcome-xp-side-link" onClick={()=>open('paint')}><XPImg id="paint" size={17}/>Paint</button>
+            <button type="button" className="welcome-xp-side-link" onClick={()=>open('contact')}><XPImg id="contact" size={17}/>Contact</button>
+          </div>}
+        </section>
+        <section className="welcome-xp-sidebox welcome-xp-details">
+          <button type="button" className="welcome-xp-panel-heading" aria-expanded={expandedPanels.details} aria-controls="valenos-details-content" onClick={()=>togglePanel('details')}>
+            <span>Details</span><span className={'welcome-xp-panel-chevron '+(expandedPanels.details?'is-open':'')} aria-hidden="true"><ChevronRight size={12} strokeWidth={2.5}/></span>
+          </button>
+          {expandedPanels.details&&<div id="valenos-details-content" className="welcome-xp-panel-body welcome-xp-details-body">
+            <strong>ValenOS</strong>
+            <span>Personal portfolio</span>
+            <span>Version 1.0</span>
+          </div>}
+        </section>
+      </aside>
+      <main className="welcome-xp-main">
+        <h2>Choose a task...</h2>
+        <div className="welcome-xp-tasks">{actions.map(a=><button key={a.id} onClick={()=>open(a.id)}><span className="welcome-xp-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" width="23" height="23" fill="none"><path d="M4 12h15m-6-6 6 6-6 6" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round"/></svg></span><span className="welcome-xp-task-text"><b>{a.title}</b><small>{a.detail}</small></span></button>)}</div>
+        <p className="welcome-xp-footer">made with curiosity, code &amp; music ♡</p>
+      </main>
+    </div>
+  </div>;
+}
 const projects=[{title:'ValenOS',tag:'React · TypeScript · Vite',desc:'Este portfolio interactivo inspirado en Windows XP y Frutiger Aero.'},{title:'Proyecto destacado 02',tag:'Tu stack',desc:'Reemplazá este ejemplo con uno de tus repositorios.'},{title:'Proyecto destacado 03',tag:'Tu stack',desc:'Agregá aquí un proyecto universitario o personal.'},{title:'Proyecto destacado 04',tag:'Tu stack',desc:'Mostrá un desafío técnico que hayas resuelto.'}];
 function Projects(){return <div className="explorer"><div className="explorer-toolbar">← Back　│　⌕ Search　│　📁 Folders</div><div className="explorer-body"><aside><strong>Project Tasks</strong><p>▸ Open project</p><p>▸ View details</p><p>▸ GitHub repository</p><strong>Other Places</strong><p>My Computer</p><p>About Me</p></aside><div className="project-grid">{projects.map((p,i)=><article className="project-card" key={p.title}><div className="folder-art"><img src="/icons/xp/folder.png" alt="" width="40" height="40" /></div><strong>{String(i+1).padStart(2,'0')}_{p.title}</strong><small>{p.tag}</small><p>{p.desc}</p></article>)}</div></div></div>}
-function About(){return <div className="notepad"><div className="notepad-menu">File　 Edit　 Format　 View　 Help</div><div className="notepad-text"><p>¡Hola! Soy Valen :)</p><p>Estudio informática y me encanta crear cosas que combinen tecnología, diseño y creatividad.</p><p>Me gusta la música, aprender herramientas nuevas y transformar ideas en proyectos reales.</p><p>Este portfolio es mi pequeño sistema operativo personal.</p><p>♡ Próximamente: más sobre mí, mis habilidades y mi recorrido.</p><span className="cursor">▍</span></div></div>}
-function Music(){const [playing,setPlaying]=useState(false);const [volume,setVolume]=useState(60);return <div className="music-app"><div className="music-display"><div className="album-art">♫</div><div><strong>Valenamp Radio</strong><small>{playing?'▶ Reproduciendo demo visual':'⏸ En pausa'}</small><div className="equalizer">▂ ▅ ▃ ▇ ▄ ▆ ▂ ▅ ▇ ▃ ▆ ▄ ▂</div></div></div><div className="music-controls"><button onClick={()=>setPlaying(p=>!p)} aria-label={playing?'Pausar':'Reproducir'}>{playing?<Pause/>:<Play/>}</button><Volume2 size={17}/><input aria-label="Volumen" type="range" min="0" max="100" value={volume} onChange={e=>setVolume(Number(e.target.value))}/>{volume===0&&<VolumeX size={15}/>}</div><div className="playlist"><strong>♪ My Playlist</strong><p>01. good code, better music</p><p>02. late night coding</p><p>03. ideas everywhere</p><p>04. café y commits</p></div><small className="music-note">Demo de interfaz: agregaremos audio real en una próxima etapa.</small></div>}
+
+function About() {
+  return (
+    <div className="notepad">
+      <div className="notepad-menu">
+        File　 Edit　 Format　 View　 Help
+      </div>
+
+      <div className="notepad-text">
+        <p>Hey there! It's Valen :)</p>
+
+        <p>
+          I'm a Computer Science student who loves
+          bringing technology, design, and creativity
+          together.
+        </p>
+
+        <p>
+          I'm passionate about music, exploring new
+          technologies, and turning ideas into
+          real-world projects.
+        </p>
+
+        <p>
+          This portfolio is my little corner of the internet, 
+          designed to capture my journey in tech. 
+          It takes me back to where it all started: 
+          just me and an old PC running Windows XP.
+        </p>
+
+        <p>
+          Thank you for stopping by! Feel free to explore my projects, 
+          listen to some tunes, or just say hi.
+        </p>
+
+        <span className="cursor">▍</span>
+      </div>
+    </div>
+  );
+}
+function Music() {
+  const [playing, setPlaying] = useState(false);
+  const [volume, setVolume] = useState(60);
+  const [position, setPosition] = useState(0);
+  const [section, setSection] = useState('Now Playing');
+  const sections = ['Now Playing', 'Media Guide', 'Copy from CD', 'Media Library', 'Radio Tuner', 'Copy to CD or Device'];
+  return (
+    <div className="wmp9">
+      <div className="wmp9-menubar"><span>File</span><span>View</span><span>Play</span><span>Tools</span><span>Help</span></div>
+      <div className="wmp9-shell">
+        <div className="wmp9-topline"><span className="wmp9-back">‹</span><div className="wmp9-view">▶ &nbsp; {section} <span>⌄</span></div></div>
+        <div className="wmp9-main">
+          <nav className="wmp9-sidebar" aria-label="Media Player sections">
+            {sections.map(s => <button key={s} className={section === s ? 'active' : ''} onClick={() => setSection(s)}>{s}{section === s && <span>›</span>}</button>)}
+            <span className="wmp9-sidebar-bottom">⌄</span>
+          </nav>
+          <div className="wmp9-content">
+            {section === 'Now Playing' ? <>
+              <div className="wmp9-visual"><div className="wmp9-visual-inner"><span className="wmp9-visual-note">♫</span></div></div>
+              <div className="wmp9-information"><div className="wmp9-placeholder-art">♫</div><div className="wmp9-track">No Better <small>Lorde · Coming soon</small></div></div>
+            </> : <div className="wmp9-empty"><strong>{section}</strong><p>This section is coming soon.</p></div>}
+          </div>
+        </div>
+        <div className="wmp9-status"><span>▣</span><button onClick={() => setPlaying(false)}>◀</button><button onClick={() => setPlaying(false)}>▶</button><span>{playing ? 'Playing preview (visual only)' : 'Ready'} · No Better — Lorde</span><span className="wmp9-status-end">▣ &nbsp; ▤</span></div>
+        <div className="wmp9-seek"><span>◀◀</span><input aria-label="Playback position (visual demo)" type="range" min="0" max="100" value={position} onChange={e => setPosition(Number(e.target.value))}/><span>▶▶</span></div>
+        <div className="wmp9-controls">
+          <button className="wmp9-play" aria-label={playing ? 'Pause visual demo' : 'Play visual demo'} onClick={() => setPlaying(v => !v)}>{playing ? <Pause size={19}/> : <Play size={19}/>}</button>
+          <button aria-label="Stop visual demo" onClick={() => {setPlaying(false);setPosition(0);}}><Square size={12}/></button>
+          <button aria-label="Previous track" onClick={() => setPosition(0)}>◀❙</button>
+          <button aria-label="Next track" onClick={() => setPosition(0)}>❙▶</button>
+          <Volume2 size={17}/><input className="wmp9-volume" aria-label="Volume" type="range" min="0" max="100" value={volume} onChange={e => setVolume(Number(e.target.value))}/>{volume === 0 && <VolumeX size={15}/>}
+          <span className="wmp9-controls-spacer"/><span className="wmp9-demo">Visual demo · No audio yet</span>
+        </div>
+      </div>
+    </div>
+  );
+}
 function Terminal(){const [lines,setLines]=useState<string[]>(['ValenOS [Version 1.0.0]','(c) 2026 Valen. All rights reserved.','','Type "help" for available commands.']);const [cmd,setCmd]=useState('');const answers:Record<string,string>={help:'Available commands: help, whoami, skills, projects, music, contact, clear',whoami:'Valen — informática, código, música y creatividad.',skills:'React · TypeScript · JavaScript · y mucho por aprender',projects:'Abrí My Projects desde el escritorio.',music:'Abrí Valenamp desde el escritorio.',contact:'Abrí Contact desde el escritorio.'};return <div className="terminal-body" onClick={()=>document.getElementById('cmd-input')?.focus()}>{lines.map((l,i)=><div key={i}>{l||'\u00a0'}</div>)}<form onSubmit={e=>{e.preventDefault();const c=cmd.trim().toLowerCase();setLines(old=>c==='clear'?[]:[...old,`C:\\Users\\Valen> ${cmd}`,answers[c]??`'${cmd}' is not recognized as a command.`]);setCmd('');}}><span>C:\Users\Valen&gt;</span><input id="cmd-input" autoComplete="off" value={cmd} onChange={e=>setCmd(e.target.value)} aria-label="Comando de terminal"/></form></div>}
 function Paint(){const canvas=useRef<HTMLCanvasElement>(null);const down=useRef(false);const [color,setColor]=useState('#2685dd');function draw(e:React.PointerEvent<HTMLCanvasElement>){if(!down.current)return;const c=canvas.current!;const rect=c.getBoundingClientRect();const ctx=c.getContext('2d')!;ctx.fillStyle=color;ctx.beginPath();ctx.arc((e.clientX-rect.left)*c.width/rect.width,(e.clientY-rect.top)*c.height/rect.height,3,0,Math.PI*2);ctx.fill();}return <div className="paint-app"><div className="paint-tools">{['#2685dd','#f04f7a','#64bd64','#ffcb45','#292929','#ffffff'].map(c=><button key={c} aria-label={'Color '+c} style={{background:c,outline:color===c?'2px solid #1454a3':undefined}} onClick={()=>setColor(c)}/>)}<button className="clear-canvas" onClick={()=>canvas.current?.getContext('2d')?.clearRect(0,0,800,450)}>Clear</button></div><canvas ref={canvas} width={800} height={450} onPointerDown={e=>{down.current=true;e.currentTarget.setPointerCapture(e.pointerId);draw(e);}} onPointerMove={draw} onPointerUp={()=>down.current=false} onPointerCancel={()=>down.current=false} aria-label="Lienzo para dibujar"/><small>Elegí un color y dibujá con el mouse o el dedo.</small></div>}
 function Contact(){return <div className="contact-app"><h2>Let's connect! ♡</h2><p>¿Querés conocer mis proyectos o trabajar conmigo?</p><p>Personalizá estos enlaces con tus datos antes de publicar.</p><a href="https://github.com/" target="_blank" rel="noreferrer"><Github size={18}/> GitHub <ExternalLink size={13}/></a><a href="https://www.linkedin.com/" target="_blank" rel="noreferrer"><Code2 size={18}/> LinkedIn <ExternalLink size={13}/></a></div>}
