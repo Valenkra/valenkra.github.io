@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { create } from 'zustand';
 import { Monitor, X, Minus, Square, Maximize2, Power, Github, ExternalLink, Volume2, VolumeX, Play, Pause, ChevronRight } from 'lucide-react';
+
 type AppId = 'welcome'|'projects'|'about'|'music'|'terminal'|'paint'|'contact';
 type Win = {id: AppId; x:number; y:number; w:number; h:number; minimized:boolean; maximized:boolean; z:number};
 type Store = {windows:Win[]; top:number; open:(id:AppId)=>void; close:(id:AppId)=>void; focus:(id:AppId)=>void; minimize:(id:AppId)=>void; maximize:(id:AppId)=>void; move:(id:AppId,x:number,y:number)=>void};
@@ -224,7 +225,6 @@ function Paint(){
         <button type="button" title="Line" disabled>╱</button><button type="button" title="Curve" disabled>⌁</button>
         <button type="button" title="Rectangle" disabled>▭</button><button type="button" title="Polygon" disabled>⬠</button>
         <button type="button" title="Ellipse" disabled>◯</button><button type="button" title="Rounded rectangle" disabled>▢</button>
-        <div className="paint-xp-tool-bottom"><span>▧</span><span>▨</span></div>
       </div>
       <div className="paint-xp-canvas-frame"><div className="paint-xp-canvas-sheet"><canvas ref={canvas} width={1100} height={740} aria-label="Paint drawing canvas" onPointerDown={e=>{drawing.current=true;e.currentTarget.setPointerCapture(e.pointerId);const ctx=canvas.current?.getContext('2d');ctx?.beginPath();draw(e);}} onPointerMove={draw} onPointerUp={()=>{drawing.current=false;canvas.current?.getContext('2d')?.beginPath();}} onPointerCancel={()=>{drawing.current=false;canvas.current?.getContext('2d')?.beginPath();}}/></div></div>
     </div>

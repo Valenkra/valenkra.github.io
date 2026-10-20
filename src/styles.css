@@ -614,7 +614,6 @@
 .paint-xp-tools button:hover:not(:disabled){border-color:#aaa;background:#f8f7ee}
 .paint-xp-tools button.active{border:1px inset #777;background:#d9d6c9;box-shadow:inset 1px 1px #777,inset -1px -1px #fff}
 .paint-xp-tools button:disabled{opacity:.75;cursor:default}
-.paint-xp-tool-bottom{grid-column:1/-1;margin-top:10px;padding:5px 0;display:flex;flex-direction:column;align-items:center;gap:6px;border:1px inset #aaa;font-size:18px;color:#3a6c97}
 .paint-xp-canvas-frame{flex:1;min-width:0;min-height:0;overflow:auto;padding:3px;background:#d1d1d1;box-shadow:inset 2px 2px #8c8c8c,inset -1px -1px #fff}
 .paint-xp-canvas-sheet{width:100%;min-width:280px;height:100%;min-height:220px;background:white;border:1px solid #8d8d8d;box-shadow:inset 1px 1px #ddd,2px 2px 0 #f5f5f5}
 .paint-xp-canvas-sheet canvas{display:block;width:100%;height:100%;touch-action:none;cursor:crosshair;background:transparent}
@@ -629,6 +628,51 @@
 .paint-xp-status{min-height:21px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:2px 5px;background:#ece9d8;border-top:1px solid #a9a99e;font:10px Tahoma,Verdana,sans-serif}
 @media(max-width:700px){.paint-xp-tools{width:46px;grid-template-columns:repeat(2,19px);grid-auto-rows:22px;padding:3px 2px}.paint-xp-tools button{width:19px;height:21px;font-size:15px}.paint-xp-bottom{gap:6px;padding:5px;min-height:49px}.paint-xp-palette{grid-template-columns:repeat(14,12px);grid-auto-rows:12px}.paint-xp-palette button{width:12px;height:12px}.paint-xp-current{width:30px;height:31px}.paint-xp-current span{width:17px;height:17px}.paint-xp-clear{padding:3px 5px}.paint-xp-status span{display:none}}
 @media(max-width:390px){.paint-xp-palette{grid-template-columns:repeat(10,12px)}.paint-xp-bottom{min-height:65px}}
+
+/* Paint XP — paleta de cuadrados clásicos, solo en responsive. */
+@media (max-width: 700px) {
+  .paint-xp-bottom {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px;
+    min-height: 0;
+    flex-shrink: 0;
+  }
+  .paint-xp-palette {
+    flex: 1 1 auto;
+    min-width: 0;
+    width: auto;
+    display: grid;
+    grid-template-columns: repeat(14, minmax(0, 1fr));
+    grid-auto-rows: auto;
+    gap: 2px;
+    align-content: center;
+  }
+  .paint-xp-palette button {
+    display: block;
+    width: 100%;
+    height: auto;
+    min-width: 0;
+    min-height: 0;
+    aspect-ratio: 1 / 1;
+    padding: 0;
+    border-radius: 0;
+    border: 1px solid #777;
+    box-shadow: inset 1px 1px 0 #ffffffb8, inset -1px -1px 0 #45454555;
+    touch-action: manipulation;
+  }
+  .paint-xp-palette button.active {
+    outline: 1px dotted #222;
+    outline-offset: 1px;
+    z-index: 1;
+  }
+  .paint-xp-current { flex: 0 0 32px; width: 32px; }
+  .paint-xp-clear { flex: 0 0 auto; margin-left: 0; }
+}
+@media (max-width: 390px) {
+  .paint-xp-palette { grid-template-columns: repeat(10, minmax(0, 1fr)); }
+}
 
 /* ValenOS — mostrar títulos en la barra de tareas mobile */
 @media (max-width: 700px) {
