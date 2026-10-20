@@ -75,7 +75,7 @@ function Welcome(){
     </div>
   </div>;
 }
-type ProjectKey = 'valenshop' | 'valenos' | 'wordle' | 'progress' | 'caete';
+type ProjectKey = 'valenshop' | 'valenos' | 'wordle' | 'progress' | 'caete' | 'finaldeeventos';
 const projectData: Record<ProjectKey,{name:string;type:string;description:string;stack:string;repo:string;demo:string}> = {
   valenshop: {
     name:'ValenShop', type:'Full-stack e-commerce · In development',
@@ -106,6 +106,12 @@ const projectData: Record<ProjectKey,{name:string;type:string;description:string
     description:'An early-stage social app concept created with my cousins to help people meet others and find company for shared plans and activities. Designed as a responsive prototype using Lovable.',
     stack:'Lovable · Responsive UI · Product Prototyping',
     repo:'', demo:'https://caete.lovable.app/'
+  },
+  finaldeeventos: {
+    name:'FinalDeEventos', type:'Academic project · Backend REST API',
+    description:'A REST API for managing events, users, locations and event registrations. Developed as an academic backend project, with controllers, services and repositories separating HTTP handling, business logic and database access.',
+    stack:'Node.js · Express · JavaScript · PostgreSQL · REST API · Postman',
+    repo:'https://github.com/Valenkra/FinalDeEventos', demo:''
   }
 };
 function Projects(){
@@ -122,18 +128,18 @@ function Projects(){
     <div className="xp-project-address"><span>Address</span><div><img src="/icons/xp/projects.png" alt="" width="15" height="15"/> My Projects{item?' / '+item.name:''}</div></div>
     <div className="xp-project-content">
       <aside className="xp-project-sidebar" aria-label="Project tasks">
-        <section className="xp-project-sidebox"><button className="xp-project-sideheading" onClick={()=>toggle('tasks')} aria-expanded={expanded.tasks}><span>Project Tasks</span><span className={'xp-project-chevron '+(expanded.tasks?'is-open':'')} aria-hidden="true"><ChevronRight size={12} strokeWidth={2.5}/></span></button>{expanded.tasks&&<div className="xp-project-sidebody"><button onClick={()=>setSelected('valenshop')}><img src="/icons/xp/folder.png" width="17" height="17" alt=""/>View ValenShop</button><button onClick={()=>setSelected('valenos')}><img src="/icons/xp/folder.png" width="17" height="17" alt=""/>View ValenOS</button><button onClick={()=>setSelected('wordle')}><img src="/icons/xp/folder.png" width="17" height="17" alt=""/>View Wordle C++</button><button onClick={()=>setSelected('progress')}><img src="/icons/xp/folder.png" width="17" height="17" alt=""/>View Progress Tracker</button><button onClick={()=>setSelected('caete')}><img src="/icons/xp/folder.png" width="17" height="17" alt=""/>View Caéte</button>{selected!==null&&selected!=='valenos'&&item&&item.repo&&<a href={item.repo} target="_blank" rel="noopener noreferrer"><ExternalLink size={15}/>Source code</a>}</div>}</section>
+        <section className="xp-project-sidebox"><button className="xp-project-sideheading" onClick={()=>toggle('tasks')} aria-expanded={expanded.tasks}><span>Project Tasks</span><span className={'xp-project-chevron '+(expanded.tasks?'is-open':'')} aria-hidden="true"><ChevronRight size={12} strokeWidth={2.5}/></span></button>{expanded.tasks&&<div className="xp-project-sidebody"><button onClick={()=>setSelected('valenshop')}><img src="/icons/xp/folder.png" width="17" height="17" alt=""/>View ValenShop</button><button onClick={()=>setSelected('valenos')}><img src="/icons/xp/folder.png" width="17" height="17" alt=""/>View ValenOS</button><button onClick={()=>setSelected('wordle')}><img src="/icons/xp/folder.png" width="17" height="17" alt=""/>View Wordle C++</button><button onClick={()=>setSelected('progress')}><img src="/icons/xp/folder.png" width="17" height="17" alt=""/>View Progress Tracker</button><button onClick={()=>setSelected('caete')}><img src="/icons/xp/folder.png" width="17" height="17" alt=""/>View Caéte</button><button onClick={()=>setSelected('finaldeeventos')}><img src="/icons/xp/folder.png" width="17" height="17" alt=""/>View FinalDeEventos</button>{selected!==null&&selected!=='valenos'&&item&&item.repo&&<a href={item.repo} target="_blank" rel="noopener noreferrer"><ExternalLink size={15}/>Source code</a>}</div>}</section>
         <section className="xp-project-sidebox"><button className="xp-project-sideheading" onClick={()=>toggle('places')} aria-expanded={expanded.places}><span>Other Places</span><span className={'xp-project-chevron '+(expanded.places?'is-open':'')} aria-hidden="true"><ChevronRight size={12} strokeWidth={2.5}/></span></button>{expanded.places&&<div className="xp-project-sidebody"><button onClick={()=>setSelected(null)}><img src="/icons/xp/folder.png" width="17" height="17" alt=""/>My Projects</button><a href="https://github.com/Valenkra" target="_blank" rel="noopener noreferrer"><Github size={16}/>GitHub</a></div>}</section>
-        <section className="xp-project-sidebox"><button className="xp-project-sideheading" onClick={()=>toggle('details')} aria-expanded={expanded.details}><span>Details</span><span className={'xp-project-chevron '+(expanded.details?'is-open':'')} aria-hidden="true"><ChevronRight size={12} strokeWidth={2.5}/></span></button>{expanded.details&&<div className="xp-project-sidebody xp-project-side-details"><strong>{item?.name??'My Projects'}</strong><span>{item?.type??'4 project folders'}</span></div>}</section>
+        <section className="xp-project-sidebox"><button className="xp-project-sideheading" onClick={()=>toggle('details')} aria-expanded={expanded.details}><span>Details</span><span className={'xp-project-chevron '+(expanded.details?'is-open':'')} aria-hidden="true"><ChevronRight size={12} strokeWidth={2.5}/></span></button>{expanded.details&&<div className="xp-project-sidebody xp-project-side-details"><strong>{item?.name??'My Projects'}</strong><span>{item?.type??'6 project folders'}</span></div>}</section>
       </aside>
-      <main className="xp-project-main">{!item?<><div className="xp-project-group-title">Files Stored in This Folder</div><div className="xp-project-folders">{folder('valenshop')}{folder('valenos')}{folder('wordle')}{folder('progress')}{folder('caete')}</div><p className="xp-project-hint">Select a folder to view its details.</p></>:<>
+      <main className="xp-project-main">{!item?<><div className="xp-project-group-title">Files Stored in This Folder</div><div className="xp-project-folders">{folder('valenshop')}{folder('valenos')}{folder('wordle')}{folder('progress')}{folder('caete')}{folder('finaldeeventos')}</div><p className="xp-project-hint">Select a folder to view its details.</p></>:<>
         <div className="xp-project-detail-title"><img src="/icons/xp/folder.png" alt="" width="44" height="44"/><div><h2>{item.name}</h2><span>{item.type}</span></div></div>
         <div className="xp-project-group-title">Description</div><p className="xp-project-description">{item.description}</p>
         <div className="xp-project-group-title">Technologies</div><p className="xp-project-description">{item.stack}</p>
         {selected!=='valenos'&&<><div className="xp-project-group-title">Links</div><div className="xp-project-links">{item.demo&&<a href={item.demo} target="_blank" rel="noopener noreferrer"><img src="/icons/xp/welcome.png" alt="" width="18" height="18"/><span>Visit live website</span></a>}{item.repo&&<a href={item.repo} target="_blank" rel="noopener noreferrer"><img src="/icons/xp/projects.png" alt="" width="18" height="18"/><span>View source code</span></a>}</div></>}
       </>}</main>
     </div>
-    <div className="xp-project-status">{item?'1 object selected':'5 objects'}</div>
+    <div className="xp-project-status">{item?'1 object selected':'6 objects'}</div>
   </div>;
 }
 
@@ -167,8 +173,7 @@ function About() {
         </p>
 
         <p>
-          Thank you for stopping by! Feel free to explore my projects, 
-          listen to some tunes, or just say hi.
+          Thank you for stopping by! Feel free to explore my projects, or just say hi.
         </p>
 
         <span className="cursor">▍</span>
