@@ -72,3 +72,18 @@
 }
 
 
+
+/* Classic Windows XP Start menu: compact two-column layout */
+.start-menu{width:min(440px,calc(100vw - 8px));max-height:calc(100dvh - 52px);display:flex;flex-direction:column;font-family:Tahoma,Verdana,Arial,sans-serif}
+.start-header{flex-shrink:0;padding:7px 10px}
+.start-header .avatar{padding:3px}
+.start-columns{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,0.9fr);min-height:0;overflow-y:auto;background:#fff}
+.start-columns .start-items{display:flex;flex-direction:column;gap:1px;padding:7px 5px;min-width:0}
+.start-columns .start-programs{background:#fff}
+.start-columns .start-folders{background:#dbe9fb;border-left:1px solid #a9c4e8}
+.start-columns .start-items button{width:100%;min-height:39px;padding:5px 6px;gap:8px;font:12px Tahoma,Verdana,Arial,sans-serif;color:#092c54;white-space:nowrap}
+.start-columns .start-items button img{flex-shrink:0}
+.start-columns .start-items button:hover{background:#316ac5;color:#fff}
+.start-bottom{flex-shrink:0;padding:6px 9px;background:linear-gradient(#69b4f6,#2368ca)}
+.start-bottom button{color:#fff;font:12px Tahoma,Verdana,Arial,sans-serif}
+@media(max-width:480px){.start-menu{width:min(410px,calc(100vw - 6px))}.start-columns .start-items button{font-size:11px;gap:5px;padding:5px 3px}.start-columns .start-items button img{width:21px;height:21px}}
