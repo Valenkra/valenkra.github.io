@@ -20,7 +20,7 @@ const useDesktop = create<Store>((set)=>({
 
 const XP={welcome:'/icons/xp/welcome.png',projects:'/icons/xp/projects.png',about:'/icons/xp/about.png',music:'/icons/xp/music.png',terminal:'/icons/xp/terminal.png',paint:'/icons/xp/paint.png',contact:'/icons/xp/contact.png'} as const;
 function XPImg({id,size=24}:{id:AppId;size?:number}){return <img className="xp-icon-image" src={XP[id]} alt="" width={size} height={size}/>;}
-const titles:Record<AppId,string>={welcome:'Welcome to ValenOS',projects:'My Projects',about:'About Me.txt',music:'Valenamp',terminal:'Terminal',paint:'Paint',contact:'Contact'};
+const titles:Record<AppId,string>={welcome:'Welcome to ValenOS',projects:'My Projects',about:'About Me.txt',music:'Valenkramp',terminal:'Terminal',paint:'Paint',contact:'Contact'};
 const desktopItems:AppId[]=['projects','about','music','terminal','paint','contact'];
 function Window({win}:{win:Win}){
  const {close,focus,minimize,maximize,move}=useDesktop();const start=useRef<{px:number;py:number;x:number;y:number}|null>(null);
@@ -38,7 +38,7 @@ function Welcome(){
   const actions: {id:AppId;title:string;detail:string}[] = [
     {id:'projects',title:'Explore my projects',detail:"Check out what I've built"},
     {id:'about',title:'Get to know me',detail:'A little more about who I am'},
-    {id:'music',title:'Listen to some music',detail:'Open Valenamp'},
+    {id:'music',title:'Listen to some music',detail:'Open Valenkramp'},
     {id:'terminal',title:'Open the terminal',detail:'Try some commands'},
   ];
   return <div className="welcome-xp">
@@ -75,7 +75,7 @@ function Welcome(){
     </div>
   </div>;
 }
-type ProjectKey = 'valenshop' | 'valenos';
+type ProjectKey = 'valenshop' | 'valenos' | 'wordle';
 const projectData: Record<ProjectKey,{name:string;type:string;description:string;stack:string;repo:string;demo:string}> = {
   valenshop: {
     name:'ValenShop', type:'Full-stack e-commerce · In development',
@@ -88,6 +88,12 @@ const projectData: Record<ProjectKey,{name:string;type:string;description:string
     description:'A nostalgic interactive portfolio inspired by Windows XP, with draggable application windows, desktop shortcuts and custom interfaces.',
     stack:'React · TypeScript · Vite · Zustand',
     repo:'https://github.com/Valenkra/Valenkra', demo:'https://valenkra.github.io/'
+  },
+  wordle: {
+    name:'Wordle C++', type:'Academic project · Command-line game',
+    description:'A command-line Wordle game built with C++17. Guess a secret five-letter word in six attempts, with word-list validation, accurate feedback for repeated letters and automated tests.',
+    stack:'C++17 · CMake · STL · Automated Testing',
+    repo:'https://github.com/Valenkra/wordle', demo:''
   }
 };
 function Projects(){
@@ -104,18 +110,18 @@ function Projects(){
     <div className="xp-project-address"><span>Address</span><div><img src="/icons/xp/projects.png" alt="" width="15" height="15"/> My Projects{item?' / '+item.name:''}</div></div>
     <div className="xp-project-content">
       <aside className="xp-project-sidebar" aria-label="Project tasks">
-        <section className="xp-project-sidebox"><button className="xp-project-sideheading" onClick={()=>toggle('tasks')} aria-expanded={expanded.tasks}><span>Project Tasks</span><span className={'xp-project-chevron '+(expanded.tasks?'is-open':'')} aria-hidden="true"><ChevronRight size={12} strokeWidth={2.5}/></span></button>{expanded.tasks&&<div className="xp-project-sidebody"><button onClick={()=>setSelected('valenshop')}><img src="/icons/xp/folder.png" width="17" height="17" alt=""/>View ValenShop</button><button onClick={()=>setSelected('valenos')}><img src="/icons/xp/folder.png" width="17" height="17" alt=""/>View ValenOS</button>{selected==='valenshop'&&item&&<a href={item.repo} target="_blank" rel="noopener noreferrer"><ExternalLink size={15}/>Source code</a>}</div>}</section>
+        <section className="xp-project-sidebox"><button className="xp-project-sideheading" onClick={()=>toggle('tasks')} aria-expanded={expanded.tasks}><span>Project Tasks</span><span className={'xp-project-chevron '+(expanded.tasks?'is-open':'')} aria-hidden="true"><ChevronRight size={12} strokeWidth={2.5}/></span></button>{expanded.tasks&&<div className="xp-project-sidebody"><button onClick={()=>setSelected('valenshop')}><img src="/icons/xp/folder.png" width="17" height="17" alt=""/>View ValenShop</button><button onClick={()=>setSelected('valenos')}><img src="/icons/xp/folder.png" width="17" height="17" alt=""/>View ValenOS</button><button onClick={()=>setSelected('wordle')}><img src="/icons/xp/folder.png" width="17" height="17" alt=""/>View Wordle C++</button>{selected!==null&&selected!=='valenos'&&item&&<a href={item.repo} target="_blank" rel="noopener noreferrer"><ExternalLink size={15}/>Source code</a>}</div>}</section>
         <section className="xp-project-sidebox"><button className="xp-project-sideheading" onClick={()=>toggle('places')} aria-expanded={expanded.places}><span>Other Places</span><span className={'xp-project-chevron '+(expanded.places?'is-open':'')} aria-hidden="true"><ChevronRight size={12} strokeWidth={2.5}/></span></button>{expanded.places&&<div className="xp-project-sidebody"><button onClick={()=>setSelected(null)}><img src="/icons/xp/folder.png" width="17" height="17" alt=""/>My Projects</button><a href="https://github.com/Valenkra" target="_blank" rel="noopener noreferrer"><Github size={16}/>GitHub</a></div>}</section>
-        <section className="xp-project-sidebox"><button className="xp-project-sideheading" onClick={()=>toggle('details')} aria-expanded={expanded.details}><span>Details</span><span className={'xp-project-chevron '+(expanded.details?'is-open':'')} aria-hidden="true"><ChevronRight size={12} strokeWidth={2.5}/></span></button>{expanded.details&&<div className="xp-project-sidebody xp-project-side-details"><strong>{item?.name??'My Projects'}</strong><span>{item?.type??'2 project folders'}</span></div>}</section>
+        <section className="xp-project-sidebox"><button className="xp-project-sideheading" onClick={()=>toggle('details')} aria-expanded={expanded.details}><span>Details</span><span className={'xp-project-chevron '+(expanded.details?'is-open':'')} aria-hidden="true"><ChevronRight size={12} strokeWidth={2.5}/></span></button>{expanded.details&&<div className="xp-project-sidebody xp-project-side-details"><strong>{item?.name??'My Projects'}</strong><span>{item?.type??'3 project folders'}</span></div>}</section>
       </aside>
-      <main className="xp-project-main">{!item?<><div className="xp-project-group-title">Files Stored in This Folder</div><div className="xp-project-folders">{folder('valenshop')}{folder('valenos')}</div><p className="xp-project-hint">Select a folder to view its details.</p></>:<>
+      <main className="xp-project-main">{!item?<><div className="xp-project-group-title">Files Stored in This Folder</div><div className="xp-project-folders">{folder('valenshop')}{folder('valenos')}{folder('wordle')}</div><p className="xp-project-hint">Select a folder to view its details.</p></>:<>
         <div className="xp-project-detail-title"><img src="/icons/xp/folder.png" alt="" width="44" height="44"/><div><h2>{item.name}</h2><span>{item.type}</span></div></div>
         <div className="xp-project-group-title">Description</div><p className="xp-project-description">{item.description}</p>
         <div className="xp-project-group-title">Technologies</div><p className="xp-project-description">{item.stack}</p>
-        {selected==='valenshop'&&<><div className="xp-project-group-title">Links</div><div className="xp-project-links"><a href={item.demo} target="_blank" rel="noopener noreferrer">🌐 Visit live website ↗</a><a href={item.repo} target="_blank" rel="noopener noreferrer">📁 View source code ↗</a></div></>}
+        {selected!=='valenos'&&<><div className="xp-project-group-title">Links</div><div className="xp-project-links">{item.demo&&<a href={item.demo} target="_blank" rel="noopener noreferrer"><img src="/icons/xp/welcome.png" alt="" width="18" height="18"/><span>Visit live website</span></a>}<a href={item.repo} target="_blank" rel="noopener noreferrer"><img src="/icons/xp/projects.png" alt="" width="18" height="18"/><span>View source code</span></a></div></>}
       </>}</main>
     </div>
-    <div className="xp-project-status">{item?'1 object selected':'2 objects'}</div>
+    <div className="xp-project-status">{item?'1 object selected':'3 objects'}</div>
   </div>;
 }
 
@@ -195,7 +201,7 @@ function Music() {
     </div>
   );
 }
-function Terminal(){const [lines,setLines]=useState<string[]>(['ValenOS [Version 1.0.0]','(c) 2026 Valen. All rights reserved.','','Type "help" for available commands.']);const [cmd,setCmd]=useState('');const answers:Record<string,string>={help:'Available commands: help, whoami, skills, projects, music, contact, clear',whoami:'Valen — informática, código, música y creatividad.',skills:'React · TypeScript · JavaScript · y mucho por aprender',projects:'Abrí My Projects desde el escritorio.',music:'Abrí Valenamp desde el escritorio.',contact:'Abrí Contact desde el escritorio.'};return <div className="terminal-body" onClick={()=>document.getElementById('cmd-input')?.focus()}>{lines.map((l,i)=><div key={i}>{l||'\u00a0'}</div>)}<form onSubmit={e=>{e.preventDefault();const c=cmd.trim().toLowerCase();setLines(old=>c==='clear'?[]:[...old,`C:\\Users\\Valen> ${cmd}`,answers[c]??`'${cmd}' is not recognized as a command.`]);setCmd('');}}><span>C:\Users\Valen&gt;</span><input id="cmd-input" autoComplete="off" value={cmd} onChange={e=>setCmd(e.target.value)} aria-label="Comando de terminal"/></form></div>}
+function Terminal(){const [lines,setLines]=useState<string[]>(['ValenOS [Version 1.0.0]','(c) 2026 Valen. All rights reserved.','','Type "help" for available commands.']);const [cmd,setCmd]=useState('');const answers:Record<string,string>={help:'Available commands: help, whoami, skills, projects, music, contact, clear',whoami:'Valen — informática, código, música y creatividad.',skills:'React · TypeScript · JavaScript · y mucho por aprender',projects:'Abrí My Projects desde el escritorio.',music:'Abrí Valenkramp desde el escritorio.',contact:'Abrí Contact desde el escritorio.'};return <div className="terminal-body" onClick={()=>document.getElementById('cmd-input')?.focus()}>{lines.map((l,i)=><div key={i}>{l||'\u00a0'}</div>)}<form onSubmit={e=>{e.preventDefault();const c=cmd.trim().toLowerCase();setLines(old=>c==='clear'?[]:[...old,`C:\\Users\\Valen> ${cmd}`,answers[c]??`'${cmd}' is not recognized as a command.`]);setCmd('');}}><span>C:\Users\Valen&gt;</span><input id="cmd-input" autoComplete="off" value={cmd} onChange={e=>setCmd(e.target.value)} aria-label="Comando de terminal"/></form></div>}
 function Paint(){
   const canvas=useRef<HTMLCanvasElement>(null);
   const drawing=useRef(false);

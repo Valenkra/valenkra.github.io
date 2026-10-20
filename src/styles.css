@@ -713,3 +713,11 @@
     flex-shrink: 0;
   }
 }
+
+/* My Projects: classic Windows XP Explorer links (desktop + mobile) */
+.xp-project-links{display:flex;flex-direction:column;align-items:flex-start;gap:3px;margin:8px 0 12px}
+.xp-project-links a{display:inline-flex;align-items:center;gap:8px;min-height:28px;padding:3px 8px 3px 4px;border:1px solid transparent;border-radius:0;background:transparent;color:#003399;font:11px Tahoma,Verdana,Arial,sans-serif;text-decoration:none}
+.xp-project-links a img{width:18px;height:18px;object-fit:contain;flex:none}
+.xp-project-links a:hover{background:#e8f1ff;border:1px dotted #7a9ac7;color:#003399}
+.xp-project-links a:hover span{text-decoration:underline}
+.xp-project-links a:active{background:#316ac5;color:#fff}
