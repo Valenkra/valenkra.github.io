@@ -1,0 +1,34 @@
+{
+  "frontend": {
+    "HTML": "Progress Tracker · ValenOS",
+    "CSS": "Progress Tracker · ValenOS",
+    "JavaScript": "Progress Tracker · FinalDeEventos",
+    "TypeScript": "ValenOS · ValenShop",
+    "React": "ValenOS · ValenShop",
+    "Tailwind CSS": "ValenShop"
+  },
+  "backend": {
+    "Node.js": "FinalDeEventos · ValenShop",
+    "Express": "FinalDeEventos",
+    "Fastify": "ValenShop",
+    "REST APIs": "FinalDeEventos · ValenShop"
+  },
+  "databases": {
+    "PostgreSQL": "FinalDeEventos · ValenShop",
+    "Supabase": "Progress Tracker · ValenShop",
+    "SQL": "FinalDeEventos"
+  },
+  "languages": {
+    "C++": "Wordle C++",
+    "JavaScript": "Progress Tracker · FinalDeEventos",
+    "TypeScript": "ValenOS · ValenShop",
+    "SQL": "FinalDeEventos"
+  },
+  "tools": {
+    "Git": "Version control for projects",
+    "GitHub": "ValenOS · Wordle C++ · FinalDeEventos",
+    "Vite": "ValenOS",
+    "Postman": "FinalDeEventos",
+    "Lovable": "Caéte prototype"
+  }
+}

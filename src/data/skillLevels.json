@@ -1,0 +1,34 @@
+{
+  "frontend": {
+    "HTML": 90,
+    "CSS": 85,
+    "JavaScript": 75,
+    "TypeScript": 65,
+    "React": 75,
+    "Tailwind CSS": 70
+  },
+  "backend": {
+    "Node.js": 65,
+    "Express": 55,
+    "Fastify": 50,
+    "REST APIs": 65
+  },
+  "databases": {
+    "PostgreSQL": 65,
+    "Supabase": 55,
+    "SQL": 70
+  },
+  "languages": {
+    "C++": 70,
+    "JavaScript": 75,
+    "TypeScript": 65,
+    "SQL": 70
+  },
+  "tools": {
+    "Git": 75,
+    "GitHub": 80,
+    "Vite": 65,
+    "Postman": 60,
+    "Lovable": 70
+  }
+}

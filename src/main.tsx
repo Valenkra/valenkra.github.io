@@ -9,4 +9,6 @@ import './styles/05-contact.css';
 import './styles/06-paint.css';
 import './styles/07-mobile.css';
 import './styles/08-project-links.css';
+import './styles/09-skills.css';
 createRoot(document.getElementById('root')!).render(<React.StrictMode><App /></React.StrictMode>);
+import './styles/10-certifications.css';
