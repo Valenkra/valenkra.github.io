@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { create } from 'zustand';
-import { Monitor, X, Minus, Square, Maximize2, Power, Github, ExternalLink, Volume2, VolumeX, Play, Pause, ChevronRight, Code2 } from 'lucide-react';
-
+import { Monitor, X, Minus, Square, Maximize2, Power, Github, ExternalLink, Volume2, VolumeX, Play, Pause, ChevronRight } from 'lucide-react';
 type AppId = 'welcome'|'projects'|'about'|'music'|'terminal'|'paint'|'contact';
 type Win = {id: AppId; x:number; y:number; w:number; h:number; minimized:boolean; maximized:boolean; z:number};
 type Store = {windows:Win[]; top:number; open:(id:AppId)=>void; close:(id:AppId)=>void; focus:(id:AppId)=>void; minimize:(id:AppId)=>void; maximize:(id:AppId)=>void; move:(id:AppId,x:number,y:number)=>void};
