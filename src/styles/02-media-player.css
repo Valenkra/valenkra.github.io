@@ -1,0 +1,97 @@
+/* Windows Media Player 9 — uses the existing ValenOS window chrome */
+.wmp9{height:100%;min-height:0;display:flex;flex-direction:column;background:#d7e5fa;color:#0b1c39;font:11px Tahoma,Verdana,Arial,sans-serif;overflow:hidden}
+.wmp9-menubar{height:22px;flex-shrink:0;display:flex;align-items:center;gap:14px;padding:0 9px;background:#f4f1e9;border-bottom:1px solid #b5bdd0}
+.wmp9-shell{flex:1;min-height:0;margin:3px 5px 5px;display:flex;flex-direction:column;border:1px solid #5e79a7;border-radius:17px 17px 12px 12px;background:linear-gradient(125deg,#eaf4ff,#95b3e6 45%,#dbe9fa);box-shadow:inset 0 2px 2px white;overflow:hidden}
+.wmp9-topline{height:31px;flex-shrink:0;display:flex;justify-content:space-between;align-items:center;padding:0 9px;background:linear-gradient(#e4f1ff,#91abd8 55%,#6684be);border-bottom:1px solid #5d75a7}
+.wmp9-back{border:1px solid #7895c0;border-radius:50%;width:19px;height:19px;text-align:center;background:linear-gradient(white,#c6d8f1);font-size:19px;line-height:14px}
+.wmp9-view{width:35%;min-width:140px;padding:5px 8px;background:linear-gradient(#fff,#d2e1fa);border:1px solid #7597c6;border-radius:5px;display:flex;justify-content:space-between}
+.wmp9-main{flex:1;min-height:0;display:flex;gap:4px;padding:4px 5px 0}
+.wmp9-sidebar{width:93px;flex-shrink:0;background:linear-gradient(90deg,#e4f0ff,#c4d5f0);border:1px solid #809bc4;border-radius:7px 7px 3px 3px;display:flex;flex-direction:column;overflow:auto}
+.wmp9-sidebar button{border:0;border-bottom:1px solid #b4c6e3;background:transparent;color:#0b1d3b;min-height:39px;padding:7px 6px;text-align:left;font: bold 11px/1.15 Tahoma,Verdana,sans-serif;display:flex;align-items:center;justify-content:space-between}
+.wmp9-sidebar button.active{background:linear-gradient(90deg,#c2d5f3,#e6f1ff)}
+.wmp9-sidebar button:hover{background:#eaf2ff}
+.wmp9-sidebar-bottom{margin:auto auto 5px;color:#254d8b}
+.wmp9-content{flex:1;min-width:0;display:flex;background:#07104b;border:1px solid #364d86;overflow:hidden}
+.wmp9-visual{flex:1;min-width:0;display:flex;align-items:center;justify-content:center;background:#00002c;padding:10px}
+.wmp9-visual-inner{height:80%;width:100%;background:#03066c;display:grid;place-items:center}
+.wmp9-visual-note{font-size:70px;color:#152782;opacity:.25}
+.wmp9-information{width:34%;min-width:125px;background:#394a7d;border-left:4px solid #7689c7;display:flex;flex-direction:column;align-items:center;padding:16px 8px;gap:13px;color:#eef4ff}
+.wmp9-placeholder-art{width:min(100%,110px);aspect-ratio:1;display:grid;place-items:center;background:linear-gradient(140deg,#7d8cb2,#344268);color:#c5d4ef;font-size:64px;box-shadow:inset 0 0 18px #18203d}
+.wmp9-track{text-align:center;font-weight:bold}.wmp9-track small{display:block;font-weight:normal;margin-top:5px}
+.wmp9-empty{flex:1;color:#d7e7ff;padding:22px}.wmp9-status{height:24px;flex-shrink:0;display:flex;align-items:center;gap:6px;padding:0 7px;color:#fff;background:linear-gradient(#263861,#101c37);white-space:nowrap;overflow:hidden}
+.wmp9-status button{width:16px;height:16px;padding:0;border:1px solid #b7c4da;border-radius:50%;background:linear-gradient(#fff,#8b9fbd);color:#243c63;font-size:9px}
+.wmp9-status>span:nth-last-child(2){overflow:hidden;text-overflow:ellipsis}.wmp9-status-end{margin-left:auto}
+.wmp9-seek{height:20px;flex-shrink:0;display:flex;align-items:center;gap:6px;padding:0 9px;background:linear-gradient(#f7fbff,#9db7df);color:#346094}
+.wmp9-seek input{flex:1;min-width:0;height:12px;accent-color:#56ba3c}
+.wmp9-controls{height:48px;flex-shrink:0;display:flex;align-items:center;gap:7px;padding:4px 10px;background:linear-gradient(#eff8ff,#b1c7e8 65%,#e8f2ff);border-top:1px solid white}
+.wmp9-controls button{height:24px;min-width:24px;display:grid;place-items:center;border-radius:50%;border:1px solid #7e9fc9;background:linear-gradient(white,#a8c6e9);color:#36577c;padding:2px;font-size:11px}
+.wmp9-controls .wmp9-play{width:35px;height:35px}.wmp9-volume{width:70px;accent-color:#4cac33}.wmp9-controls-spacer{flex:1}.wmp9-demo{font-size:10px;color:#3a567c;white-space:nowrap}
+@media(max-width:700px){.wmp9-sidebar{width:78px}.wmp9-sidebar button{font-size:10px;padding:5px 4px;min-height:35px}.wmp9-information{min-width:92px;width:35%;padding:12px 4px}.wmp9-placeholder-art{font-size:42px}.wmp9-demo{display:none}.wmp9-controls{gap:5px;padding:3px 6px}.wmp9-volume{width:45px}.wmp9-view{min-width:120px}}
+@media(max-width:390px){.wmp9-sidebar{width:68px}.wmp9-sidebar button{font-size:9px}.wmp9-information{min-width:78px}.wmp9-visual{padding:4px}.wmp9-status-end{display:none}}
+
+/* Responsive Windows Media Player 9 — desktop layout stays unchanged */
+@media (max-width: 700px) {
+  /* Media Player uses the available mobile screen, without hiding its controls below the taskbar. */
+  .xp-window:has(.wmp9):not(.maximized) {
+    left: 6px !important;
+    top: 8px !important;
+    width: calc(100% - 12px) !important;
+    height: calc(100dvh - 58px) !important;
+    min-width: 0;
+    min-height: 0;
+  }
+  .xp-window:has(.wmp9) .window-content { overflow: hidden; min-height: 0; }
+  .wmp9 { width: 100%; min-width: 0; }
+  .wmp9-menubar { gap: 12px; padding-inline: 8px; font-size: 10px; }
+  .wmp9-shell { margin: 3px 3px 4px; min-height: 0; }
+  .wmp9-topline { height: 27px; }
+  .wmp9-view { width: auto; min-width: 135px; max-width: 75%; }
+  .wmp9-main { flex-direction: column; gap: 3px; padding: 3px 3px 0; min-height: 0; }
+  .wmp9-sidebar {
+    width: 100%; height: 44px; min-height: 44px; flex-direction: row;
+    align-items: stretch; overflow-x: auto; overflow-y: hidden;
+    border-radius: 5px; scrollbar-width: thin;
+  }
+  .wmp9-sidebar button {
+    flex: 0 0 auto; min-height: 0; min-width: 80px; max-width: 125px;
+    padding: 4px 9px; border-bottom: 0; border-right: 1px solid #b4c6e3;
+    font-size: 10px; text-align: center; justify-content: center;
+    white-space: normal;
+  }
+  .wmp9-sidebar button span, .wmp9-sidebar-bottom { display: none; }
+  .wmp9-content { flex: 1; min-height: 0; flex-direction: column; }
+  .wmp9-visual { flex: 1; min-height: 75px; padding: 5px; }
+  .wmp9-visual-inner { height: 100%; }
+  .wmp9-visual-note { font-size: clamp(30px, 12vw, 60px); }
+  .wmp9-information {
+    width: 100%; min-width: 0; height: 78px; min-height: 78px;
+    flex-direction: row; justify-content: flex-start; gap: 12px;
+    padding: 7px 12px; border-left: 0; border-top: 3px solid #7689c7;
+  }
+  .wmp9-placeholder-art { width: 55px; height: 55px; flex: 0 0 55px; font-size: 30px; }
+  .wmp9-track { text-align: left; overflow-wrap: anywhere; }
+  .wmp9-status { height: 22px; }
+  .wmp9-seek { height: 22px; }
+  .wmp9-controls { height: 51px; gap: 6px; padding: 3px 8px; }
+  .wmp9-controls button { flex-shrink: 0; }
+  .wmp9-controls .wmp9-play { width: 35px; }
+  .wmp9-volume { width: clamp(35px, 15vw, 75px); min-width: 0; }
+  .wmp9-demo { display: none; }
+}
+@media (max-width: 360px) {
+  .wmp9-sidebar { height: 39px; min-height: 39px; }
+  .wmp9-sidebar button { min-width: 75px; font-size: 9px; }
+  .wmp9-information { height: 68px; min-height: 68px; }
+  .wmp9-placeholder-art { width: 46px; height: 46px; flex-basis: 46px; }
+  .wmp9-controls { gap: 4px; padding-inline: 4px; }
+  .wmp9-controls button { min-width: 21px; height: 21px; }
+  .wmp9-controls .wmp9-play { width: 32px; height: 32px; }
+}
+@media (max-width: 700px) and (max-height: 520px) {
+  .wmp9-information { height: 56px; min-height: 56px; }
+  .wmp9-placeholder-art { width: 40px; height: 40px; flex-basis: 40px; }
+  .wmp9-sidebar { height: 34px; min-height: 34px; }
+  .wmp9-visual { min-height: 30px; }
+}
+
+

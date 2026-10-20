@@ -1,0 +1,40 @@
+/* ValenOS — mostrar títulos en la barra de tareas mobile */
+@media (max-width: 700px) {
+  .task-items {
+    display: flex;
+    flex: 1;
+    min-width: 0;
+    gap: 4px;
+    padding: 3px 5px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .task-items::-webkit-scrollbar {
+    display: none;
+  }
+
+  .task-items button {
+    flex: 0 0 auto;
+    width: 112px;
+    min-width: 112px;
+    max-width: 112px;
+    padding: 0 7px;
+    gap: 6px;
+  }
+
+  .task-items button span {
+    display: block !important;
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font: 11px Tahoma, Verdana, Arial, sans-serif;
+  }
+
+  .task-items button img {
+    flex-shrink: 0;
+  }
+}
+
