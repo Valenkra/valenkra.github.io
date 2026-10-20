@@ -578,3 +578,28 @@
 /* Contact — XP collapse controls aligned to the right */
 .contact-xp-sidebar .welcome-xp-panel-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;text-align:left;}
 .contact-xp-sidebar .welcome-xp-panel-chevron{margin-left:auto;}
+
+/* Contact: compact, content-sized XP window on small screens only. */
+@media (max-width: 700px) {
+  .xp-window:has(.contact-xp):not(.maximized) {
+    left: 8px !important;
+    top: 55px !important;
+    width: calc(100% - 16px) !important;
+    height: min(395px, calc(100dvh - 110px)) !important;
+    min-height: 0;
+    max-height: calc(100dvh - 55px);
+  }
+  .xp-window:has(.contact-xp) .window-content { overflow: hidden; }
+  .contact-xp-menu { height: 24px; }
+  .contact-xp-bar { height: 31px; }
+  .contact-xp-main { padding: 13px 15px; }
+  .contact-xp-heading { margin-bottom: 13px; }
+  .contact-xp-link { padding: 5px 4px; }
+  .contact-xp-note { margin-top: 10px; }
+}
+@media (max-width: 700px) and (max-height: 490px) {
+  .xp-window:has(.contact-xp):not(.maximized) {
+    top: 6px !important;
+    height: calc(100dvh - 54px) !important;
+  }
+}
