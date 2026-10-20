@@ -87,3 +87,42 @@
 .start-bottom{flex-shrink:0;padding:6px 9px;background:linear-gradient(#69b4f6,#2368ca)}
 .start-bottom button{color:#fff;font:12px Tahoma,Verdana,Arial,sans-serif}
 @media(max-width:480px){.start-menu{width:min(410px,calc(100vw - 6px))}.start-columns .start-items button{font-size:11px;gap:5px;padding:5px 3px}.start-columns .start-items button img{width:21px;height:21px}}
+
+
+/* Start Menu — Windows XP compact */
+.start-menu {
+  width: min(360px, calc(100vw - 8px));
+}
+
+.start-columns {
+  grid-template-columns: 1.08fr 0.92fr;
+}
+
+.start-columns .start-items button {
+  min-height: 44px;
+  padding: 6px 8px;
+  gap: 10px;
+  font: 14px Tahoma, Verdana, Arial, sans-serif;
+}
+
+.start-columns .start-items button img {
+  width: 30px;
+  height: 30px;
+}
+
+@media (max-width: 480px) {
+  .start-menu {
+    width: calc(100vw - 50px);
+  }
+
+  .start-columns .start-items button {
+    font-size: 12px;
+    gap: 6px;
+    padding: 5px 4px;
+  }
+
+  .start-columns .start-items button img {
+    width: 25px;
+    height: 25px;
+  }
+}

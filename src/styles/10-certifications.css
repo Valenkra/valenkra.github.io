@@ -13,3 +13,29 @@
 .certs-no-link{color:#666;font-style:italic}
 .xp-window:has(.certs-explorer):not(.maximized){max-width:calc(100vw - 20px);max-height:calc(100dvh - 55px)}
 @media(max-width:700px){.xp-window:has(.certs-explorer):not(.maximized){left:8px!important;top:65px!important;width:calc(100% - 16px)!important;height:calc(100dvh - 125px)!important}.certs-workspace{flex-direction:column}.certs-files{flex:1;grid-template-columns:repeat(auto-fill,84px);grid-auto-rows:91px;gap:5px;padding:9px}.certs-file{width:84px;height:91px}.certs-preview{flex:0 0 auto;max-height:52%;border-left:0;border-top:1px solid #b8b8b8}.certs-preview-body{padding:9px 12px;gap:7px}}
+
+/* Responsive certificate icons: distribute available Explorer width evenly. */
+@media (max-width:700px) {
+  .certs-files {
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(min(100%,112px),1fr));
+    grid-auto-rows:minmax(112px,auto);
+    align-content:start;
+    justify-content:stretch;
+    gap:6px;
+    padding:10px 9px;
+  }
+  .certs-file {
+    width:100%;
+    height:100%;
+    min-height:112px;
+    padding:8px 5px;
+    gap:7px;
+  }
+  .certs-file span {
+    max-width:100%;
+    overflow-wrap:break-word;
+    word-break:normal;
+    hyphens:none;
+  }
+}
